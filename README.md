@@ -1,0 +1,1 @@
+# mkdocs-required-tags-plugin
