@@ -1,7 +1,7 @@
 """
 Module to assist exclude certain files being processed by plugin.
 
-Inspired by https://github.com/apenwarr/mkdocs-exclude
+Inspired by https://github.com/apenwarr/mkdocs-exclude and https://github.com/timvink/mkdocs-git-revision-date-localized-plugin/
 """
 import os
 import fnmatch

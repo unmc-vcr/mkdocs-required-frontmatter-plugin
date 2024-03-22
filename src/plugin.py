@@ -14,27 +14,22 @@ import time
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.nav import Page
-from mkdocs.utils import copy_file
-from mkdocs.exceptions import ConfigurationError, PluginError
+from mkdocs.exceptions import PluginError
 
 from src.exclude import exclude
-
 
 from typing import Any, Dict
 from collections import OrderedDict
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-
-
-class RequiredTagsPlugin(BasePlugin):
+class RequiredFrontmatterPlugin(BasePlugin):
     """
-    Mkdocs plugin to add revision date from Git.
+    Mkdocs plugin to require certain frontmatter for documents.
 
     See https://www.mkdocs.org/user-guide/plugins
     """
 
     config_scheme = (
-        ("required_tags", config_options.Type(list, default=[])),
+        ("required_keys", config_options.Type(list, default=[])),
         ("exclude", config_options.Type(list, default=[])),
         ("enabled", config_options.Type(bool, default=True)),
         ("strict", config_options.Type(bool, default=True)),
@@ -91,8 +86,11 @@ class RequiredTagsPlugin(BasePlugin):
             logging.debug("Excluding page " + page.file.src_path)
             return markdown
         
-        for tag in self.config.get('required_tags'):
-            if tag not in page.meta:
-                raise PluginError(f"The required tag '{tag}' is missing on the page.")
+        for key in self.config.get('required_keys'):
+            if key not in page.meta:
+                if self.config.get('strict'):
+                    raise PluginError(f"The required tag '{key}' is missing on the page.")
+                else:
+                    logging.warn(f"The required tag '{key}' is missing on the page at {page.file.src_path}.")
 
         return markdown

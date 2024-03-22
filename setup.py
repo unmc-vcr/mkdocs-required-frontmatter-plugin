@@ -1,11 +1,11 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="mkdocs-required-tags-plugin",
+    name="mkdocs-required-frontmatter-plugin",
     packages=find_packages(),
     version="0.0.2",
-    keywords="mkdocs plugin tags required",
-    url="https://github.com/unmc-vcr/mkdocs-required-tags-plugin",
+    keywords="mkdocs plugin frontmatter required",
+    url="https://github.com/unmc-vcr/mkdocs-required-frontmatter-plugin",
     author="James Geiger",
     author_email="james.geiger@unmc.edu",
     license="MIT",
@@ -21,7 +21,7 @@ setup(
     ],
     entry_points={
         "mkdocs.plugins": [
-            "required-tags = src.plugin:RequiredTagsPlugin"
+            "required-frontmatter = src.plugin:RequiredFrontmatterPlugin"
         ]
     }
 )
